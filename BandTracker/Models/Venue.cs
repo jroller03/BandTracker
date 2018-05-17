@@ -8,20 +8,20 @@ namespace BandTracker
   public class Venue
   {
     private int _id;
-    private string _venueName;
+    private string _name;
 
-    public Venue(string VenueName, int id = 0)
+    public Venue(string Name, int id = 0)
     {
       _id = id;
-      _venueName = VenueName;
+      _name = Name;
     }
     public int GetId()
     {
       return _id;
     }
-    public string GetVenueName()
+    public string GetName()
     {
-      return _venueName;
+      return _name;
     }
     public override bool Equals(System.Object otherVenue)
     {
@@ -33,13 +33,13 @@ namespace BandTracker
       {
          Venue newVenue = (Venue) otherVenue;
          bool idEquality = this.GetId() == newVenue.GetId();
-         bool venueNameEquality = this.GetVenueName() == newVenue.GetVenueName();
-         return (idEquality && venueNameEquality);
+         bool nameEquality = this.GetName() == newVenue.GetName();
+         return (idEquality && nameEquality);
        }
     }
     public override int GetHashCode()
     {
-         return this.GetVenueName().GetHashCode();
+         return this.GetName().GetHashCode();
     }
     public void Save()
     {
@@ -47,9 +47,9 @@ namespace BandTracker
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
-      cmd.CommandText = @"INSERT INTO venues (venue_name) VALUES (@thisVenueName);";
+      cmd.CommandText = @"INSERT INTO venues (name) VALUES (@thisName);";
 
-      cmd.Parameters.Add(new MySqlParameter("@thisVenueName", this._venueName));
+      cmd.Parameters.Add(new MySqlParameter("@thisName", this._name));
 
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
@@ -224,11 +224,11 @@ namespace BandTracker
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE venues SET venue_name = @venueName WHERE id = @searchId";
+      cmd.CommandText = @"UPDATE venues SET name = @venueName WHERE id = @searchId";
       cmd.Parameters.Add(new MySqlParameter("@searchId", _id));
       cmd.Parameters.Add(new MySqlParameter("@venueName", newVenue));
       cmd.ExecuteNonQuery();
-      _venueName = newVenue;
+      _name = newVenue;
       conn.Close();
       if (conn !=null)
       {

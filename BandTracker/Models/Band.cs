@@ -120,8 +120,8 @@ namespace BandTracker
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT venues.* FROM bands
-        JOIN venues_bands ON (band_id = venues_bands.band_id)
-        JOIN venues ON (venues_bands.venue_id=venues.id)
+        JOIN bands_venues ON (band_id = bands_venues.band_id)
+        JOIN venues ON (bands_venues.venue_id=venues.id)
         WHERE band_id = @BandId;";
 
         MySqlParameter bandIdParameter = new MySqlParameter();
@@ -153,7 +153,7 @@ namespace BandTracker
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"INSERT INTO venues_bands (venue_id, band_id ) VALUES (@VenueId, @BandId);";
+        cmd.CommandText = @"INSERT INTO bands_venues (venue_id, band_id ) VALUES (@VenueId, @BandId);";
 
         MySqlParameter venue_id = new MySqlParameter();
         venue_id.ParameterName = "@VenueId";
@@ -170,6 +170,19 @@ namespace BandTracker
         if (conn != null)
         {
           conn.Dispose();
+        }
+      }
+      public static void DeleteAll()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM bands;";
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
         }
       }
 
