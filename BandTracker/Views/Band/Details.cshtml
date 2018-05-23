@@ -1,0 +1,38 @@
+@using BandTracker.Models;
+<!DOCTYPE html>
+@{
+  Layout = "_Layout";
+}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Band Details Page</title>
+  </head>
+  <body>
+    <h1>Band Tracker</h1>
+    <h2>Band: @Model["selectedBand"].GetBand()</h2>
+    <hr />
+    @if (@Model["events"].Count != 0)
+    {
+      <h4>Here are all locations this band plays:</h4>
+      <ul>
+        @foreach (var venues in @Model["bands_venues"])
+        {
+          <li>@venues.GetVenueName()</li>
+        }
+      </ul>
+    }
+    <h4>Add a Venue to this list:</h4>
+    <form action='/band/@Model["selectedBand"].GetId()/venue/new' method='post'>
+      <label for='venue-id'>Select a venue</label>
+      <select id='venue-id' name='venue-id' type='text'>
+        @foreach (var venue in @Model["allVenues"])
+        {
+          <option value='@venue.GetId()'>@venue.GetVenueName()</option>
+        }
+      </select>
+      <button class="btn btn-primary" type='submit'>Add</button>
+    </form>
+    <p><a href="/">Return To HomePage</a></p>
+  </body>
+</html>

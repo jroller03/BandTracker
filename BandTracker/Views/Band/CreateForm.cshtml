@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+@{
+  Layout = "_Layout";
+}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create Band Page</title>
+  </head>
+  <body>
+    <h1>Add a new band</h1>
+    <form action="/band" method="post">
+      <label for="band-name">Band Name:</label>
+      <input id="band-name" name="band-name" type="text">
+      <button type="submit">Add new band</button>
+    </form>
+    <p><a href="/">Home</a></p>
+    <p><a href="/band">View all bands</a></p>
+  </body>
+</html>
