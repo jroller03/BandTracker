@@ -71,7 +71,7 @@ namespace BandTracker.Controllers
 
         string newName=Request.Form["new-venue-name"];
 
-        selectedVenue.Update(newName);
+        selectedVenue.UpdateVenue(newName);
         return RedirectToAction("Index");
     }
 

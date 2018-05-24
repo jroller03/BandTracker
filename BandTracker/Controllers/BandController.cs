@@ -26,7 +26,7 @@ namespace BandTracker.Controllers
             return View("Success", "Home");
         }
         [HttpGet("/band/{id}")]
-        public ActionResult ViewBands(int id)
+        public ActionResult ViewBand(int id)
         {
             Dictionary<string, object> model = new Dictionary<string, object>();
             Band selectedBand = Band.Find(id);
@@ -42,7 +42,7 @@ namespace BandTracker.Controllers
         {
             Band band = Band.Find(venueId);
             Venue venue = Venue.Find(Int32.Parse(Request.Form["venue-id"]));
-            band.SetVenues(venue);
+            band.AddVenue(venue);
             return RedirectToAction("ViewBands",  new { id = venueId });
         }
     }

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@using BandTracker.Models;
 @{
   Layout = "_Layout";
 }
@@ -8,6 +9,30 @@
     <title>Details Venue Page</title>
   </head>
   <body>
-
+    <h1>Band Tracker</h1>
+    <h2>Venue: @Model["selectedVenue"].GetName()</h2>
+    <hr />
+    @if (@Model["venueBands"].Count != 0)
+    {
+      <h4>Here are all the bands that have played at this venue:</h4>
+      <ul>
+        @foreach (var band in @Model["venueBands"])
+        {
+          <li>@band.GetName()</li>
+        }
+      </ul>
+    }
+    <h4>Add a band to this venue:</h4>
+    <form action='/venue/@Model["selectedVenue"].GetId()/band/new' method='post'>
+      <label for='band-id'>Select a band</label>
+      <select id='band-id' name='band-id' type='text'>
+        @foreach (var band in @Model["allBands"])
+        {
+          <option value='@band.GetId()'>@band.GetName()</option>
+        }
+      </select>
+      <button type='submit'>Add</button>
+    </form>
+    <p><a href="/">Return to Home Page</a></p>
   </body>
 </html>

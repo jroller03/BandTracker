@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+@{
+  Layout = "_Layout";
+}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Updated Venue</title>
+  </head>
+  <body>
+    <form action="/venue/update" method="post">
+    <select id="venue-update" name="venue-update">
+          @foreach(var thisVenue in Model)
+          {
+            <option value="@thisVenue.GetId()">@thisVenue.GetName()</option>
+          }
+    </select>
+    <label for="new-venue-name">Enter new venue name:</label>
+    <input id="new-venue-name" name="new-venue-name" type="text">
+    <button type="submit">Update Venue Name</button>
+    </form>
+    <p><a href="/">Return home</a></p>
+  </body>
+</html>

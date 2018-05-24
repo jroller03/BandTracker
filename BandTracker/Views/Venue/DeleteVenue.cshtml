@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+@{
+  Layout = "_Layout";
+}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete Venue</title>
+  </head>
+  <body>
+    <form action="/venue/delete" method="post">
+    <select id="venue-delete" name="venue-delete">
+          @foreach(var thisVenue in Model)
+          {
+            <option value="@thisVenue.GetId()">@thisVenue.GetName()</option>
+          }
+    </select>
+    <button type="submit">Delete Venue</button>
+    </form>
+
+    <p><a href="/">Return home</a></p>
+  </body>
+</html>
