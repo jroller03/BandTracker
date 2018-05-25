@@ -47,7 +47,7 @@ namespace BandTracker
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
-      cmd.CommandText = @"INSERT INTO venues (name) VALUES (@thisName);";
+      cmd.CommandText = @"INSERT INTO venues (venue_name) VALUES (@thisName);";
 
       cmd.Parameters.Add(new MySqlParameter("@thisName", this._name));
 
@@ -146,17 +146,17 @@ namespace BandTracker
       MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"INSERT INTO venues (band_id, venue_id) VALUES (@BandId, @VenueId);";
+        cmd.CommandText = @"INSERT INTO bands_venues (band_id, venue_id) VALUES (@BandId, @VenueId);";
 
         MySqlParameter band_id = new MySqlParameter();
         band_id.ParameterName = "@BandId";
         band_id.Value = newBand.GetId();
         cmd.Parameters.Add(band_id);
 
-        MySqlParameter _id = new MySqlParameter();
-        _id.ParameterName = "@VenueId";
-        _id.Value = _id;
-        cmd.Parameters.Add(_id);
+        MySqlParameter venueId = new MySqlParameter();
+        venueId.ParameterName = "@VenueId";
+        venueId.Value = _id;
+        cmd.Parameters.Add(venueId);
 
         cmd.ExecuteNonQuery();
         conn.Close();
@@ -171,16 +171,17 @@ namespace BandTracker
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT bands.* FROM venues
-            JOIN bands_venues ON (venues.venue_id = venue_bands.venue_id)
-            JOIN bands ON (venue_bands.band_id = bands.band_id)
-            WHERE venues.venue_id = @VenueId;";
+            JOIN bands_venues ON (venues.id = bands_venues.venue_id)
+            JOIN bands ON (bands_venues.band_id = bands.id)
+            WHERE venues.id = @VenueId;";
+
 
         MySqlParameter idParameter = new MySqlParameter();
         idParameter.ParameterName = "@VenueId";
         idParameter.Value = _id;
         cmd.Parameters.Add(idParameter);
 
-        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 
         List<int> bandIds = new List<int> {};
         while(rdr.Read())
@@ -194,7 +195,7 @@ namespace BandTracker
         foreach (int bandId in bandIds)
         {
             var bandQuery = conn.CreateCommand() as MySqlCommand;
-            bandQuery.CommandText = @"SELECT * FROM bands WHERE band_id = @BandId;";
+            bandQuery.CommandText = @"SELECT * FROM bands WHERE id = @BandId;";
 
             MySqlParameter bandIdParameter = new MySqlParameter();
             bandIdParameter.ParameterName = "@BandId";
@@ -224,7 +225,7 @@ namespace BandTracker
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE venues SET name = @venueName WHERE id = @searchId";
+      cmd.CommandText = @"UPDATE venues SET venue_name = @venueName WHERE id = @searchId";
       cmd.Parameters.Add(new MySqlParameter("@searchId", _id));
       cmd.Parameters.Add(new MySqlParameter("@venueName", newVenue));
       cmd.ExecuteNonQuery();

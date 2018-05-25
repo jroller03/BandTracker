@@ -10,9 +10,9 @@
   <body>
     <form action="/venue/update" method="post">
     <select id="venue-update" name="venue-update">
-          @foreach(var thisVenue in Model)
+          @foreach(var venue in Model)
           {
-            <option value="@thisVenue.GetId()">@thisVenue.GetName()</option>
+            <option value="@venue.GetId()">@venue.GetName()</option>
           }
     </select>
     <label for="new-venue-name">Enter new venue name:</label>

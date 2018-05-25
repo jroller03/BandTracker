@@ -10,9 +10,9 @@
   <body>
     <form action="/venue/delete" method="post">
     <select id="venue-delete" name="venue-delete">
-          @foreach(var thisVenue in Model)
+          @foreach(var venue in Model)
           {
-            <option value="@thisVenue.GetId()">@thisVenue.GetName()</option>
+            <option value="@venue.GetId()">@venue.GetName()</option>
           }
     </select>
     <button type="submit">Delete Venue</button>

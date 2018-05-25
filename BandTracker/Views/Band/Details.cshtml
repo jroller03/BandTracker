@@ -10,15 +10,15 @@
   </head>
   <body>
     <h1>Band Tracker</h1>
-    <h2>Band: @Model["selectedBand"].GetBand()</h2>
+    <h2>Band: @Model["selectedBand"].GetName()</h2>
     <hr/>
-    @if (@Model["events"].Count != 0)
+    @if (@Model["venueBands"].Count != 0)
     {
       <h4>Here are all locations this band plays:</h4>
       <ul>
-        @foreach (var venues in @Model["bands_venues"])
+        @foreach (var venues in @Model["venueBands"])
         {
-          <li>@venues.GetVenueName()</li>
+          <li>@venues.GetName()</li>
         }
       </ul>
     }
@@ -28,7 +28,7 @@
       <select id='venue-id' name='venue-id' type='text'>
         @foreach (var venue in @Model["allVenues"])
         {
-          <option value='@venue.GetId()'>@venue.GetVenueName()</option>
+          <option value='@venue.GetId()'>@venue.GetName()</option>
         }
       </select>
       <button class="btn btn-primary" type='submit'>Add</button>

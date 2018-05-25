@@ -70,7 +70,7 @@ namespace BandTracker
         conn.Open();
         MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
-        cmd.CommandText = @"INSERT INTO bands (name) VALUES (@thisName);";
+        cmd.CommandText = @"INSERT INTO bands (band_name) VALUES (@thisName);";
 
         cmd.Parameters.Add(new MySqlParameter("@thisName", _name));
 

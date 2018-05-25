@@ -41,7 +41,7 @@ namespace BandTracker.Controllers
     }
 
     [HttpGet("/venue/delete")]
-    public ActionResult DeleteVenue()
+    public ActionResult DeleteAll()
     {
         List<Venue> allVenues = Venue.GetAllVenues();
         return View(allVenues);
@@ -78,7 +78,7 @@ namespace BandTracker.Controllers
 
 
     [HttpPost("/venue/{venueId}/band/new")]
-    public ActionResult AddBand(int venueId)
+    public ActionResult AddVenue(int venueId)
     {
         Venue venue = Venue.Find(venueId);
         Band band = Band.Find(int.Parse(Request.Form["band-id"]));
